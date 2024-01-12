@@ -85,13 +85,40 @@ function Friend({ friend }) {
 }
 
 function FormAddFriend() {
-  return (
-    <form className="form-add-friend">
-      <label>Friend Name</label>
-      <input type="text"></input>
+  const [name, setName] = useState("");
+  const [image, setImage] = useState("https://i.pravatar.cc/48");
 
-      <label>Image URL</label>
-      <input type="text"></input>
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    const id = crypto.randomUUID;
+
+    const newFriend = {
+      id,
+      name,
+      image: `${image}?=${id}`,
+      balance: 0,
+    };
+
+    setName("");
+    setImage("");
+  }
+
+  return (
+    <form className="form-add-friend" onSubmit={handleSubmit}>
+      <label>🕺Friend Name</label>
+      <input
+        type="text"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      ></input>
+
+      <label>📷Image URL</label>
+      <input
+        type="text"
+        value={image}
+        onChange={(e) => setImage(e.target.value)}
+      ></input>
 
       <Button>Add</Button>
     </form>
@@ -103,16 +130,16 @@ function FormSplitBill() {
     <form className="form-split-bill">
       <h2>Split a Bill with X</h2>
 
-      <label>Bill Amount</label>
+      <label>💸Bill Amount</label>
       <input type="text"></input>
 
-      <label>Your Expense</label>
+      <label>🕴Your Expense</label>
       <input type="text"></input>
 
-      <label>X's Expense</label>
+      <label>🕺X's Expense</label>
       <input type="text" disabled></input>
 
-      <label>Who is paying the bill?</label>
+      <label>🥴Who is paying the bill?</label>
       <select>
         <option value="user">You</option>
         <option value="friend">X</option>
